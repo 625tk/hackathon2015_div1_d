@@ -19,10 +19,13 @@ class TweetController < ApplicationController
     @tweet.text = params[:text]
     p params
     p request.body.read
-    if @tweet.save
-      format.json { render json: @tweet }
-    else
-      format.json { render json: @tweet.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @tweet.save
+        pp @tweet.to_json
+        format.json { render json: @tweet }
+      else
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
     end
   end
 
