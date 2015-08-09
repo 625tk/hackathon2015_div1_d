@@ -7,3 +7,12 @@
     <% end %>
   </ul>
 </div>
+
+<form id="tweet-form">
+  <textarea name='tweet' placeholder='input tweet here'></textarea>
+  <input type="button" id="load-btn" value="send">
+</form>
+
+<script>
+localStorage['last_id'] = <%= @tweets.first.id %>;
+</script>
