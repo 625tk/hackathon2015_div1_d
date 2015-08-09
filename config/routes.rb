@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '*path', to: 'tweet#before_index',  constraints: lambda { |request| current=Time.now; 0>=current.hour&&current.hour<=24 }
+  get '*path', to: 'tweet#before_index',  constraints: lambda { |request| current=Time.now; current.hour < 2 || 3 < current.hour }
   get '/', to: 'tweet#index'
   get '/tweet/before_index', to: 'tweet#before_index'
 

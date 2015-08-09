@@ -6,7 +6,7 @@ function onClickLoad()
     function(data) {
       if(data.length !== 0) {
         data.forEach(function(d) {
-          $('div#tweets').prepend('<div class="tweet-item"><p>' + d.text + '</p><p><button class="btn btn-sm btn-primary" style="background: none; color: #006dcc;">button1</button> <button class="btn btn-sm btn-danger" style="background: none; color: #ac2925;">button2</button></p></div>');
+          $('div#tweets').prepend('<div class="tweet-item"><div class="row-fluid"><span class="col-md-8"><p>' + d.text + '</p></span><span class="col-md-4"><p><button class="ganbare"><img src="ganbare.svg" width="100" height="100"></button><button class="yasume"><img src="yasume.svg" width="100" height="100"></button></p></span></div></div>');
         });
         localStorage['last_id'] = data[data.length-1].id;
       }
@@ -70,7 +70,12 @@ function onClickReaction(type)
   body {
     background-color: #333;
   }
-  .tweet-item {
+ .tweet-item {
+    color: #eee;
+    padding: 8px 16px;
+  }
+
+.col-md-8 , .col-md-4, .col-sm-8, .col-sm-4, .col-xs-8, .col-xs-4{
     color: #eee;
     padding: 8px 16px;
     border-top: solid #d43f3a 1px;
@@ -80,11 +85,15 @@ function onClickReaction(type)
 <div id="tweets">
   <% @tweets.each do |tweet| %>
     <div class="tweet-item">
-      <p><%= tweet.text %></p>
-      <p>
-        <button class="ganbare"><img src="ganbare.svg" width="100" height="100"></button>
-        <button class="yasume"><img src="yasume.svg" width="100" height="100"></button>
-      </p>
+     <div class="col-xs-8 col-md-8 col-sm-8">
+       <p><%= tweet.text %></p>
+     </div>
+      <div class="col-xs-4 col-md-4 col-sm-4">
+        <p>
+          <button class="ganbare"><img src="ganbare.svg" width="100" height="100"></button>
+          <button class="yasume"><img src="yasume.svg" width="100" height="100"></button>
+        </p>
+      </div>
     </div>
   <% end %>
 </div>

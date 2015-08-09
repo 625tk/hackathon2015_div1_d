@@ -1,4 +1,6 @@
 class TweetController < ApplicationController
+  protect_from_forgery except: :create
+  before_action :time_check
 
   def before_index
 
@@ -27,7 +29,13 @@ class TweetController < ApplicationController
   end
 
   private
-  
+
+  def time_check
+    if Time.now.hour < 0 || 24 < Time.now.hour 
+      render :before_index
+    end
+  end
+
   def tweet_params
     params.require(:tweet).permit(:id, :reply_to_id, :text, :created_at)
   end
