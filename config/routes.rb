@@ -1,7 +1,10 @@
-require 'TimeConstraint'
 Rails.application.routes.draw do
+  get '*path', to: 'tweet#index',  constraints: lambda { |request| current=Time.now; 0<=current.hour&&current.hour<=24 }
+  get '/', to: 'tweet#index'
+  constraints format: :json do
+    get 'tweet/more/:id', to: 'tweet#more'
+  end
 
-  get '/', to: 'tweet#index', constraints => Timeconstraint.new
 
 
   # The priority is based upon order of creation: first created -> highest priority.
