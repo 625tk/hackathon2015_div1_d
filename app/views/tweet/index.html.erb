@@ -4,9 +4,8 @@ function onClickLoad()
   $.get(
     'http://192.168.33.10:3000/tweets/more/'+localStorage['last_id'],
     function(data) {
-      alert(JSON.stringify(data));
       data.forEach(function(d) {
-        $('div#tweets').prepend('<p>' + d.text + '</p>');
+        $('div#tweets').prepend('<div class="tweet-item"><p>' + d.text + '</p><p><button class="btn btn-sm btn-primary">button1</button> <button class="btn btn-sm btn-danger">button2</button></p></div>');
       });
       localStorage['last_id'] = data[data.length-1].id;
     }
@@ -24,6 +23,7 @@ function onClickSend()
     success: function(data) {
       $('div#tweets').append(data);
       $('#tweet').val('');
+      onClickLoad();
     },
     error: function(data) {
       alert('failed to send tweet: '+JSON.stringify(data));
@@ -52,21 +52,64 @@ function onClickReaction(type)
 */
 </script>
 
-<input type="button" onClick="onClickLoad()" value="load more tweet">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">logo</a>
+      <div class="pull-right">
+        <button class="btn btn-default" style="border-radius: 0 0 4px 4px;" onClick="onClickLoad()"><i class="fa fa-refresh"></i></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<style>
+  body {
+    background-color: #333;
+  }
+  .tweet-item {
+    color: #eee;
+    padding: 8px 16px;
+    border-top: solid #F00 1px;
+    border-left: solid #F00 1px;
+    border-right: solid #F00 1px;
+  }
+</style>
 
 <div id="tweets">
   <% @tweets.each do |tweet| %>
-    <div class="tweet-item"><p><%= tweet.text %></p><p>button1</p><p>button2</p></div>
+    <div class="tweet-item">
+      <p><%= tweet.text %></p>
+      <p>
+        <button class="btn btn-sm btn-primary">button1</button>
+        <button class="btn btn-sm btn-danger">button2</button>
+      </p>
+    </div>
   <% end %>
 </div>
 
-<form id="tweet-form">
-  <textarea id='tweet' placeholder='input tweet here'></textarea>
-  <input type="button" onClick="onClickSend()" value="send">
-</form>
+
+<style>
+  body {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+</style>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container-fluid">
+    <form id="tweet-form" style="padding: 8px 0;">
+      <div class="input-group">
+      <textarea id='tweet' class="form-control" rows="1" placeholder='input tweet here'></textarea>
+      <span class="input-group-btn">
+      <input type="button" class="btn btn-primary" onClick="onClickSend()" value="send">
+      </span>
+      </div>
+    </form>
+  </div>
+</nav>
 
 <script>
-localStorage['last_id'] = <%= @tweets.first.id %>;
-
-setInterval(onClickLoad, 5000);
+  localStorage['last_id'] = <%= @tweets.first.id %>;
+  setInterval(onClickLoad, 5000);
 </script>
