@@ -4,12 +4,12 @@ class TweetController < ApplicationController
     @tweets = Tweet.first 20
   end
 
-  # GET /tweet/more/:id.json
+  # GET /tweets/more/:id.json
   def more
     @tweets = Tweet.where("id > ?", params[:id]).limit 5
   end
 
-  # POST /tweet/create/tweet.json
+  # POST /tweets
   def create
     @tweet = Tweet.new tweet_params
     if @tweet.save
