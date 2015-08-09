@@ -1,4 +1,8 @@
 class TweetController < ApplicationController
+
+  def before_index
+
+  end
   # GET /
   def index
     @tweets = Tweet.first 20
