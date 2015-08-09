@@ -7,7 +7,6 @@ function onClickLoad()
       alert(JSON.stringify(data));
       data.forEach(function(d) {
         $('div#tweets').prepend('<p>' + d.text + '</p>');
-        alert(d);
       });
       localStorage['last_id'] = data[data.length-1].id;
     }
@@ -31,6 +30,26 @@ function onClickSend()
     }
   });
 };
+
+/*
+function onClickReaction(type)
+{
+  $this = $(this);
+  $.ajax({
+    type: 'POST',
+    url: 'http://192.168.33.10:3000/tweets/'+$this.id,
+    data: {
+      reaction_type: type,
+    },
+    success: function(data) {
+      
+    },
+    error: function(data) {
+      
+    }
+  });
+};
+*/
 </script>
 
 <input type="button" onClick="onClickLoad()" value="load more tweet">
@@ -48,4 +67,6 @@ function onClickSend()
 
 <script>
 localStorage['last_id'] = <%= @tweets.first.id %>;
+
+setInterval(onClickLoad, 5000);
 </script>
