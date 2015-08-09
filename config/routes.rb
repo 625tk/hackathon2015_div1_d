@@ -1,4 +1,9 @@
+require 'TimeConstraint'
 Rails.application.routes.draw do
+
+  get '/', to: 'tweet#index', constraints => Timeconstraint.new
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
