@@ -4,10 +4,12 @@ function onClickLoad()
   $.get(
     'http://192.168.33.10:3000/tweets/more/'+localStorage['last_id'],
     function(data) {
-      data.forEach(function(d) {
-        $('div#tweets').prepend('<div class="tweet-item"><p>' + d.text + '</p><p><button class="btn btn-sm btn-primary">button1</button> <button class="btn btn-sm btn-danger">button2</button></p></div>');
-      });
-      localStorage['last_id'] = data[data.length-1].id;
+      if(data.length !== 0) {
+        data.forEach(function(d) {
+          $('div#tweets').prepend('<div class="tweet-item"><p>' + d.text + '</p><p><button class="btn btn-sm btn-primary" style="background: none; color: #006dcc;">button1</button> <button class="btn btn-sm btn-danger" style="background: none; color: #ac2925;">button2</button></p></div>');
+        });
+        localStorage['last_id'] = data[data.length-1].id;
+      }
     }
   );
 };
@@ -71,9 +73,7 @@ function onClickReaction(type)
   .tweet-item {
     color: #eee;
     padding: 8px 16px;
-    border-top: solid #F00 1px;
-    border-left: solid #F00 1px;
-    border-right: solid #F00 1px;
+    border-top: solid #d43f3a 1px;
   }
 </style>
 
@@ -83,7 +83,7 @@ function onClickReaction(type)
       <p><%= tweet.text %></p>
       <p>
         <button class="btn btn-sm btn-primary">button1</button>
-        <button class="btn btn-sm btn-danger">button2</button>
+        <button class="btn btn-sm btn-danger" style="background:none; color: #d43f3a;">button2</button>
       </p>
     </div>
   <% end %>
