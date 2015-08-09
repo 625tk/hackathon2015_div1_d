@@ -5,8 +5,11 @@ function onClickLoad()
     'http://192.168.33.10:3000/tweets/more/'+localStorage['last_id'],
     function(data) {
       alert(JSON.stringify(data));
-      $('div#tweets').append(data);
-      //localStorage['last_id'] = data.
+      data.forEach(function(d) {
+        $('div#tweets').prepend('<p>' + d.text + '</p>');
+        alert(d);
+      });
+      localStorage['last_id'] = data[data.length-1].id;
     }
   );
 };
@@ -21,6 +24,7 @@ function onClickSend()
     },
     success: function(data) {
       $('div#tweets').append(data);
+      $('#tweet').val('');
     },
     error: function(data) {
       alert('failed to send tweet: '+JSON.stringify(data));
