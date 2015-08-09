@@ -1,9 +1,12 @@
 require 'TimeConstraint'
 Rails.application.routes.draw do
 
-  get '/', to: 'tweet#index', constraints => Timeconstraint.new
+  get '/', to: 'tweet#index'
 
-
+  constraints format: :json do
+    get '/tweets/more/:id' => 'tweet#more'
+    post '/tweets' => 'tweet#create'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
