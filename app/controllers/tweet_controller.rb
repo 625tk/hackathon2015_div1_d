@@ -17,11 +17,8 @@ class TweetController < ApplicationController
   def create
     @tweet = Tweet.new
     @tweet.text = params[:text]
-    p params
-    p request.body.read
     respond_to do |format|
       if @tweet.save
-        pp @tweet.to_json
         format.json { render json: @tweet }
       else
         format.json { render json: @tweet.errors, status: :unprocessable_entity }
