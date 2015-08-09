@@ -1,0 +1,25 @@
+body{
+	width: 100%;
+	background-color: black;
+}
+
+#logo,#minDeath,#joinUs{
+	display: block;
+	margin: 0 auto;
+}
+
+#kimoneko{
+	width: 100%;
+}
+
+#minDeath,#joinUs{
+	width: 75%;
+}
+
+#joinUs{
+	margin-top: 60px;
+}
+
+p{
+	color: white;
+}
