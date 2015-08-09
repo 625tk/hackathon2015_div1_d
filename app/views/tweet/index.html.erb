@@ -1,16 +1,45 @@
+<script>
+function onClickLoad()
+{
+  $.get(
+    'http://192.168.33.10:3000/tweets/more/'+localStorage['last_id'],
+    function(data) {
+      alert(JSON.stringify(data));
+      $('div#tweets').append(data);
+      //localStorage['last_id'] = data.
+    }
+  );
+};
 
+function onClickSend()
+{
+  $.ajax({
+    type: 'POST',
+    url: 'http://192.168.33.10:3000/tweets',
+    data: {
+      text: $('#tweet').val()
+    },
+    success: function(data) {
+      $('div#tweets').append(data);
+    },
+    error: function(data) {
+      alert('failed to send tweet: '+JSON.stringify(data));
+    }
+  });
+};
+</script>
+
+<input type="button" onClick="onClickLoad()" value="load more tweet">
 
 <div id="tweets">
-  <ul>
-    <% @tweets.each do |tweet| %>
-    <li><%= tweet.text %></li>
-    <% end %>
-  </ul>
+  <% @tweets.each do |tweet| %>
+    <div class="tweet-item"><p><%= tweet.text %></p><p>button1</p><p>button2</p></div>
+  <% end %>
 </div>
 
 <form id="tweet-form">
-  <textarea name='tweet' placeholder='input tweet here'></textarea>
-  <input type="button" id="load-btn" value="send">
+  <textarea id='tweet' placeholder='input tweet here'></textarea>
+  <input type="button" onClick="onClickSend()" value="send">
 </form>
 
 <script>

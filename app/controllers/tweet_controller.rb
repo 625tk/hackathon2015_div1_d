@@ -5,19 +5,22 @@ class TweetController < ApplicationController
   end
   # GET /
   def index
-    @tweets = Tweet.first 20
+    @tweets = Tweet.last(20).reverse
   end
 
   # GET /tweets/more/:id.json
   def more
-    @tweets = Tweet.where("id > ?", params[:id]).limit 5
+    @tweets = Tweet.where("id > ?", params[:id]).limit(5)
   end
 
   # POST /tweets
   def create
-    @tweet = Tweet.new tweet_params
+    @tweet = Tweet.new
+    @tweet.text = params[:text]
+    p params
+    p request.body.read
     if @tweet.save
-      format.json { render action: 'show', status: :created, location: @tweet }
+      format.json { render json: @tweet }
     else
       format.json { render json: @tweet.errors, status: :unprocessable_entity }
     end
