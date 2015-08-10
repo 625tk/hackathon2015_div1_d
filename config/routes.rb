@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   constraints format: :json do
     get '/tweets/more/:id' => 'tweet#more'
     post '/tweets' => 'tweet#create'
+    post '/tweets/:id/reaction' => 'tweet#update'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
