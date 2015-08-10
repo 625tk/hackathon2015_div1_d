@@ -18,6 +18,14 @@ class TweetController < ApplicationController
   # POST /tweets
   def create
     @tweet = Tweet.new
+
+    if params[:text] == ""
+      respond_to do |format|
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+      return
+   end
+
     @tweet.text = params[:text]
     respond_to do |format|
       if @tweet.save
