@@ -1,13 +1,23 @@
 // Place all the styles related to the reaction controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.ganbare, .yasume {
+button.ganbare, button.yasume {
   background: none;
   border: none;
 }
 
 .badge {
+  background: none;
   float: right;
-  margin-top: -32px;
-  margin-right: -16px;
+  position: relative;
+  border: solid 1px #eee;
+}
+
+span.ganbare {
+    border: solid 1px #cc0066;
+    color: #cc0066;
+}
+span.yasume {
+    border: solid 1px #ff6600;
+    color: #ff6600;
 }
