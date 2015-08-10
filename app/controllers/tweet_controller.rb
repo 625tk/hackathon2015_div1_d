@@ -1,5 +1,5 @@
 class TweetController < ApplicationController
-  protect_from_forgery except: :create
+  protect_from_forgery except: [:create, :update]
   before_action :time_check
 
   def before_index
@@ -24,6 +24,24 @@ class TweetController < ApplicationController
         format.json { render json: @tweet }
       else
         format.json { render json: @tweet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @tweet = Tweet.find(params[:id])
+    case params[:reaction_type]
+    when '1' then
+      @tweet.cheer += 1
+    when '2' then
+      @tweet.break += 1
+    end
+
+    respond_to do |format|
+      if @tweet.save!
+        format.json { render json: @tweet }
+      else
+        format.json { render json: @tweet.errors, status: :unprocessable_entity  }
       end
     end
   end
