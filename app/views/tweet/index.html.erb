@@ -59,7 +59,9 @@ function sendReaction(id, type)
       reaction_type: type,
     },
     success: function(data) {
-      
+       var count = $('#twc-' +type+ '-' +id);
+       var i = Number(count.text());
+       count.text(i+1);
     },
     error: function(data) {
       
@@ -124,11 +126,11 @@ $(document).ready(function(){
         <p>
           <div style="float: right;">
           <button class="ganbare" value="<%= tweet.id %>"><img src="assets/ganbare.png" width="100" height="100"></button>
-          <span class="badge ganbare"><%= tweet.cheer %></span>
+          <span id="twc-1-<%= tweet.id %>" class="badge ganbare"><%= tweet.cheer %></span>
           </div>
           <div style="float: right;">
           <button class="yasume" value="<%= tweet.id %>"><img src="assets/yasume.png" width="100" height="100"></button>
-          <span class="badge yasume"><%= tweet.break %></span>
+          <span id="twc-2-<%= tweet.id %>" class="badge yasume"><%= tweet.break %></span>
           </div>
         </p>
       </div>
