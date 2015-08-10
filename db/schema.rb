@@ -11,15 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809075847) do
+ActiveRecord::Schema.define(version: 20150809233048) do
+
+  create_table "reactions", force: :cascade do |t|
+    t.string   "from_session_id"
+    t.integer  "to_tweet_id"
+    t.integer  "reaction_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "tweets", force: :cascade do |t|
     t.string   "session_id"
     t.integer  "tweet_id"
     t.integer  "reply_to_id"
     t.text     "text"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "cheer",       default: 0
+    t.integer  "break",       default: 0
   end
 
 end
