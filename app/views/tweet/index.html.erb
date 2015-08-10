@@ -95,16 +95,20 @@ $(document).ready(function(){
   }
 </style>
 
+<img src="assets/zangyouPeople.jpg" alt="" width="100%">
+
 <div id="tweets">
   <% @tweets.each do |tweet| %>
     <div class="tweet-item">
      <div class="col-xs-8 col-md-8 col-sm-8">
-       <pre><%= tweet.text %></pre> <span><%= tweet.cheer %> <%= tweet.break %></span>
+       <pre><%= tweet.text %></pre> 
      </div>
       <div class="col-xs-4 col-md-4 col-sm-4">
         <p>
-          <button class="ganbare" value="<%= tweet.id %>"><img src="ganbare.svg" width="100" height="100"></button>
-          <button class="yasume" value="<%= tweet.id %>"><img src="yasume.svg" width="100" height="100"></button>
+          <button class="ganbare" value="<%= tweet.id %>"><img src="assets/ganbare.png" width="100" height="100"></button>
+          <span class="badge"><%= tweet.cheer %></span>
+          <button class="yasume" value="<%= tweet.id %>"><img src="assets/yasume.png" width="100" height="100"></button>
+          <span class="badge"><%= tweet.break %></span>
         </p>
       </div>
     </div>
